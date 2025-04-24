@@ -1,0 +1,19 @@
+[project]
+name = "project-jango-1"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "Semyon",email = "semenb668@gmail.com"}
+]
+readme = ""
+requires-python = ">=3.13"
+dependencies = [
+    "django (>=5.2,<6.0)",
+    "mistralai (>=1.7.0,<2.0.0)",
+    "markdown (>=3.8,<4.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
