@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-
+from .data import *
 
 masters = [
     {"id": 1, "name": "Эльдар 'Бритва' Рязанов"},
@@ -28,3 +28,24 @@ def thanks(request):
     context = {'masters_count': masters_count}
     return render(request, 'thanks.html', context)
 
+def test(request):
+    class TestClass:
+        def __init__(self, name):
+            self.name = name
+       
+        def __str__(self):
+            return f'Экземпляр класса {self.__class__.__name__} с именем {self.name}'
+       
+        def say_my_name(self):
+            return f'Меня зовут {self.name}'
+    
+    test_instance = TestClass('Тестовый экземпляр')
+
+    context = {
+        'string': 'Мастер по усам',
+        'number': 42,
+        'list_': ['Стрижка бороды', 'Усы-таракан', 'Укладка бровей'],
+        'dict_': {'best_master': 'Алевтина Арбузова'},
+        'class_': test_instance,
+    }
+    return render(request, 'test.html', context)
