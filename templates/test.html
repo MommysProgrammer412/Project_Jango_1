@@ -29,6 +29,25 @@
         <p>Статус: неактивен</p>
     {% endif %}
 
+<h3>Вариант 2</h3>
+<div class='employee'>
+    <p>имя: {{employee.name}}</p>
+    <p>статус: {{employee.is_active}}</p>
+{% if employee.position == 'manager' %}
+    <p class = 'yellow'>менеджер барбершопа</p>
+{% elif employee.position == 'master' %}
+    <p class = 'blue'>мастер барбершопа</p>
+{% else %}
+    <p>неизвестная должность</p>
+{% endif %}
+
+<h3>Вариант 3</h3>
+{% if employee.salary > 90000 %}
+    <p>Зп руководителя {{employee.position}}</p>
+{% elif employee.salary > 50000 %}
+    <p>Зп мастера {{employee.position}}</p>
+{% endif %}
+</div>
 
 </body>
 </html>
