@@ -26,7 +26,7 @@ def master_detail(request, master_id):
 def thanks(request):
     masters_count = len(masters)
     context = {'masters_count': masters_count}
-    return render(request, 'thanks.html', context)
+    return render(request, 'core/thanks.html', context)
 
 class Employee:
     def __init__(self, name: str, is_active: bool, is_married: bool, age: int, salary: float, position: str, hobbies: list):
@@ -60,3 +60,16 @@ def test(request):
         'employees': employees
     }
     return render(request, 'test.html', context)
+
+def orders_list(request):
+    context = {
+        'orders': orders, 'title': 'Список заказов'
+    }
+    return render(request, 'core/orders_list.html', context)
+def order_detail(request, order_id):
+    try:
+        order = [o for o in orders if o['id'] == order_id][0]
+    except IndexError:
+        return HttpResponse(status=404)
+    context = {'title': f'заказ №{order_id}', 'order': order}
+    return render(request, 'core/order_detail.html', context)
