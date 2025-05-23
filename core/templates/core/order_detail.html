@@ -11,16 +11,25 @@
     <script src="{% static 'js/test.js' %}"></script>
   </head>
 <body>
-    <h1>{{title}}</h1>
-    <div>
-        <p>{{order.client_name}}</p>
-        <ul>
-        {% for service in order.services %}
+    <div class="container">
+        <div class="card">
+    <h5 class = 'card-title text-center'>{{title}}</h5>
+        <ul class="list-group list-group-flush">
+        <li class = 'list-group-item'>{{order.client_name}}</li>
+        <li class = 'list-group-item'>{{order.date}}</li>
+        <li class = 'list-group-item'>{{order.status}}</li>
+        <li class = 'list-group-item'>
+            <ul>
+            {% for service in order.services %}
         <li>{{service}}</li>
         {% endfor %}
         </ul>
-        <p>{{order.date}}</p>
-        <p>{{order.status}}</p>
+        </li>
+        </ul>
+        <div class="card-body">
+            <a href="/barbershop/orders/" class = 'btn btn-dark'>В каталог</a>
+        </div>
     </div>
+</div>
 </body>
 </html>
