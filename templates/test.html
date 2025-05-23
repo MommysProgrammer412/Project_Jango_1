@@ -54,7 +54,11 @@
 
 <h2>Циклы</h2>
 {% for employee in employees %}
+{% if forloop.first %}
+<hr>
+{% endif %}
 <div class='employee'>
+    <p>Номер сотрудника: {{forloop.counter}}</p>
     <p>имя: {{employee.name}}</p>
     <p>статус: {{employee.is_active}}</p>
 {% if employee.position == 'manager' %}
@@ -71,7 +75,11 @@
     <p>Зп мастера {{employee.position}}</p>
 {% endif %}
 </div>
+{% if forloop.last %}
+<hr>
+{% endif %}
 {% endfor %}
+
 
 </body>
 </html>
