@@ -1,7 +1,7 @@
 MENU_ITEMS = [
     {
         "name": "Главная страница",
-        "url_name": "landing"
+        "url_name": "main"
     },
     {
         "name": "Список заказов",
