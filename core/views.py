@@ -1,32 +1,64 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .data import *
-
-masters = [
-    {"id": 1, "name": "Эльдар 'Бритва' Рязанов"},
-    {"id": 2, "name": "Зоя 'Ножницы' Космодемьянская"},
-    {"id": 3, "name": "Борис 'Фен' Пастернак"},
-    {"id": 4, "name": "Иннокентий 'Лак' Смоктуновский"},
-    {"id": 5, "name": "Раиса 'Бигуди' Горбачёва"},
-]
+from .data import masters, services, orders, MENU_ITEMS
 
 def main(request):
-    return HttpResponse("""
-<h1>Добро пожаловать в наш барbershop!</h1>
-<p>Мы предлагаем широкий выбор услуг для вашего путешествия.</p>
-""")
+    """Главная страница (лендинг)"""
+    context = {
+        'masters': masters,
+        'services': services,
+    }
+    return render(request, 'base.html', context)
+
+def landing(request):
+    """Главная страница (лендинг)"""
+    context = {
+        'masters': masters,
+        'services': services,
+    }
+    return render(request, 'base.html', context)
+
+def thanks(request):
+    """Страница благодарности за заявку"""
+    masters_count = len(masters)
+    context = {
+        'masters_count': masters_count,
+        'menu_items': MENU_ITEMS
+    }
+    return render(request, 'core/thanks.html', context)
+
+def orders_list(request):
+    """Список всех заявок"""
+    context = {
+        'orders': orders,
+        'title': 'Список заказов'
+    }
+    return render(request, 'core/orders_list.html', context)
+
+def order_detail(request, order_id):
+    """Детали конкретной заявки"""
+    try:
+        order = [o for o in orders if o['id'] == order_id][0]
+    except IndexError:
+        return HttpResponse(status=404)
+    
+    # Найдем мастера для этой заявки
+    master = next((master for master in masters if master['id'] == order['master_id']), None) if order else None
+    
+    context = {
+        'title': f'заказ №{order_id}',
+        'order': order,
+        'master': master,
+    }
+    return render(request, 'core/order_detail.html', context)
 
 def master_detail(request, master_id):
+    """Детали конкретного мастера"""
     try:
         master = [m for m in masters if m['id'] == master_id][0]
     except IndexError:
         return HttpResponse('Мастера не найдено')
     return HttpResponse(f"<h1>{master['name']}</h1>")
-
-def thanks(request):
-    masters_count = len(masters)
-    context = {'masters_count': masters_count, 'menu_items': MENU_ITEMS}
-    return render(request, 'core/thanks.html', context)
 
 class Employee:
     def __init__(self, name: str, is_active: bool, is_married: bool, age: int, salary: float, position: str, hobbies: list):
@@ -42,7 +74,6 @@ class Employee:
         return f'Имя: {self.name}.\nВозраст: {self.age}.\nЗарплата: {self.salary}.\nДолжность: {self.position}.'
 
 def test(request):
-    
     employee = Employee('Алевтина', True, True, 42, 100000, 'manager', ['Журналы про усы', 'Компьютерные игры', 'Пиво'])
     employee2 = Employee('Бородач', True, False, 25, 50000, 'master', ['Садоводство', 'Пиво', 'Компьютерные игры'])
     employee3 = Employee("Барбарис", True, False, 30, 60000, 'master', ['Газонокосилки', 'Пиво', 'Стрельба из арбалета'])
@@ -60,16 +91,3 @@ def test(request):
         'employees': employees
     }
     return render(request, 'test.html', context)
-
-def orders_list(request):
-    context = {
-        'orders': orders, 'title': 'Список заказов'
-    }
-    return render(request, 'core/orders_list.html', context)
-def order_detail(request, order_id):
-    try:
-        order = [o for o in orders if o['id'] == order_id][0]
-    except IndexError:
-        return HttpResponse(status=404)
-    context = {'title': f'заказ №{order_id}', 'order': order}
-    return render(request, 'core/order_detail.html', context)
