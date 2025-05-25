@@ -16,7 +16,7 @@ def landing(request):
         'masters': masters,
         'services': services,
     }
-    return render(request, 'base.html', context)
+    return render(request, 'landing.html', context)
 
 def thanks(request):
     """Страница благодарности за заявку"""

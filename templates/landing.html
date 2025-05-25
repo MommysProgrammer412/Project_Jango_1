@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="jumbotron">
+    <h1 class="display-4">Добро пожаловать в наш барбершоп!</h1>
+    <p class="lead">Мы предлагаем широкий спектр услуг по стрижке и уходу за волосами.</p>
+    <hr class="my-4">
+    
+    <h2>Наши мастера</h2>
+    <div class="row">
+        {% for master in masters %}
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ master.name }}</h5>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    
+    <h2>Наши услуги</h2>
+    <div class="row">
+        {% for service in services %}
+        <div class="col-md-4 mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <p class="card-text">{{ service }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    
+    <a class="btn btn-primary btn-lg mt-4" href="{% url 'thanks' %}" role="button">Записаться</a>
+</div>
+{% endblock content %}

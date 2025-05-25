@@ -1,27 +1,42 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-        <div class="card">
-    <h5 class = 'card-title text-center'>{{title}}</h5>
+<div class="container">
+    <h1 class="mb-4">{{ title|default:"Детали заявки" }}</h1>
+    
+    {% if order %}
+    <div class="card">
+        <div class="card-header bg-light">
+            <h5 class="card-title mb-0">Клиент: {{ order.client_name }}</h5>
+        </div>
         <ul class="list-group list-group-flush">
-        <li class = 'list-group-item'>{{order.client_name}}</li>
-        <li class = 'list-group-item'>{{order.date}}</li>
-        <li class = 'list-group-item'>{{order.status}}</li>
-        <li class = 'list-group-item'>
-            <ul>
-            {% for service in order.services %}
-        <li>{{service}}</li>
-        {% endfor %}
-        </ul>
-        </li>
+            <li class="list-group-item">Дата: {{ order.date }}</li>
+            <li class="list-group-item">Статус: {{ order.status }}</li>
+            {% if master %}
+            <li class="list-group-item">Мастер: {{ master.name }}</li>
+            {% endif %}
+            <li class="list-group-item">
+                <h6 class="mb-2">Услуги:</h6>
+                <ul>
+                    {% for service in order.services %}
+                    <li>{{ service }}</li>
+                    {% endfor %}
+                </ul>
+            </li>
         </ul>
         <div class="card-body">
-            <a href=" {% url 'orders_list' %}" class = 'btn btn-dark'>В каталог</a>
+            <a href="{% url 'orders_list' %}" class="btn btn-dark">Назад к списку</a>
         </div>
     </div>
+    {% else %}
+    <div class="alert alert-danger">
+        Заявка не найдена
+    </div>
+    {% endif %}
+</div>
 {% endblock content %}
-{% block scripts %}
 
+{% block scripts %}
 <script src='{% static "js/order_detail.js" %}'></script>
 {{ block.super }}
 {% endblock scripts %}
