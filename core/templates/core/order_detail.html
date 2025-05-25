@@ -2,30 +2,23 @@
 {% load static %}
 {% block content %}
 <div class="container">
-    <h1 class="mb-4">{{ title|default:"Детали заявки" }}</h1>
-    
+    <h1>Детали заявки</h1>
     {% if order %}
     <div class="card">
-        <div class="card-header bg-light">
-            <h5 class="card-title mb-0">Клиент: {{ order.client_name }}</h5>
-        </div>
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item">Дата: {{ order.date }}</li>
-            <li class="list-group-item">Статус: {{ order.status }}</li>
-            {% if master %}
-            <li class="list-group-item">Мастер: {{ master.name }}</li>
-            {% endif %}
-            <li class="list-group-item">
-                <h6 class="mb-2">Услуги:</h6>
-                <ul>
-                    {% for service in order.services %}
-                    <li>{{ service }}</li>
-                    {% endfor %}
-                </ul>
-            </li>
-        </ul>
         <div class="card-body">
-            <a href="{% url 'orders_list' %}" class="btn btn-dark">Назад к списку</a>
+            <h5 class="card-title">Клиент: {{ order.client_name }}</h5>
+            <p class="card-text">Статус: {{ order.status }}</p>
+            <p class="card-text">Дата: {{ order.date }}</p>
+            <p class="card-text">Мастер: {{ master.name }}</p>
+            
+            <h6>Услуги:</h6>
+            <ul>
+                {% for service in order.services %}
+                <li>{{ service }}</li>
+                {% endfor %}
+            </ul>
+            
+            <a href="{% url 'orders_list' %}" class="btn btn-secondary">Назад к списку</a>
         </div>
     </div>
     {% else %}
