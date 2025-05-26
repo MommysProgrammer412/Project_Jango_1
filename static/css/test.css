@@ -1,16 +1,16 @@
-.blue {
+.blue-position {
     color: blue;
     font-weight: bold;
 }
- 
-.yellow {
-    color: #FFC107;
+
+.yellow-position {
+    color: yellow;
     font-weight: bold;
 }
- 
+
 .employee {
+    margin: 20px;
+    padding: 15px;
     border: 1px solid #ccc;
-    padding: 10px;
-    margin-bottom: 15px;
     border-radius: 5px;
 }

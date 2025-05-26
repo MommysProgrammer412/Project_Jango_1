@@ -14,3 +14,15 @@ def format_price(value, currency='₽'):
     except (ValueError, TypeError):
         # Если не удалось преобразовать в число, возвращаем исходное значение
         return value
+
+@register.simple_tag(name='format_name')
+def format_name(name):
+    if not name:
+        return ""
+    return f'Мастер {name.capitalize()}'
+
+@register.simple_tag(name='format_position')
+def format_position(position, param1, param2):
+    if not position:
+        return ""
+    return f'Должность: {position.capitalize()} {param1} {param2}'
