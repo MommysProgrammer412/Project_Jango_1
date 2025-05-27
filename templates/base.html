@@ -37,9 +37,9 @@
         {% comment %} Данные будут вставлятся сюда! {% endcomment %} 
         {% endblock%}
       </main>
-      <footer>
-        {% block footer %} 
-      <footer class="footer bg-dark text-light mt-auto py-3">
+      {% block footer %}
+      <hr>
+      <footer class="footer bg-dark text-light mt-auto mt-5 py-3">
           <div class="container">
               <div class="row mb-3">
                   <div class="col-md-6">
@@ -49,8 +49,13 @@
                       <p><i class="bi bi-clock-fill"></i> Ежедневно с 10:00 до 22:00</p>
                   </div>
                   <div class="col-md-6">
-        <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A6ec66a705352bf83819f541a7036c07fbaf45c7810381ddb98f20eeb169ad7e5&amp;source=constructor" width="600" height="400" frameborder="0"></iframe>
-                        </div>
+                      <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A304c2039934f5c625151c78ddfcf9b085b782cb9ac9f20b6d218a486180ab6ac&amp;source=constructor" 
+                              width="100%" 
+                              height="300" 
+                              frameborder="0"
+                              class="rounded">
+                      </iframe>
+                  </div>
               </div>
               <div class="row">
                   <div class="col-12 text-center border-top pt-3">
@@ -58,7 +63,8 @@
                   </div>
               </div>
           </div>
-    </footer>
+      </footer>
+      
       {% endblock footer %}
     </div>
 

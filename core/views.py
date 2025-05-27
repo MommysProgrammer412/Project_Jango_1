@@ -11,10 +11,13 @@ masters = [
 ]
 
 def landing(request):
-    return HttpResponse("""
-<h1>Добро пожаловать в наш барbershop!</h1>
-<p>Мы предлагаем широкий выбор услуг для вашего путешествия.</p>
-""")
+    context = {
+        "title": "Главная - Барбершоп Арбуз",
+        "services": services, # Из data.py
+        "masters": masters,   # Из data.py
+        "years_on_market": 50
+    }
+    return render(request, "core/landing.html", context)
 
 def master_detail(request, master_id):
     try:
