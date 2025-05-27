@@ -10,7 +10,7 @@ masters = [
     {"id": 5, "name": "Раиса 'Бигуди' Горбачёва"},
 ]
 
-def main(request):
+def landing(request):
     return HttpResponse("""
 <h1>Добро пожаловать в наш барbershop!</h1>
 <p>Мы предлагаем широкий выбор услуг для вашего путешествия.</p>
