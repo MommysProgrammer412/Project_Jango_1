@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .data import *
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 
 
 def landing(request):
@@ -108,11 +108,16 @@ def test(request):
     }
     return render(request, "test.html", context)
 
+def is_staff_user(user):
+    return user.is_staff
+
+@user_passes_test(is_staff_user)
 @login_required
 def orders_list(request):
     context = {"orders": orders, "title": "Список заказов"}
     return render(request, "core/orders_list.html", context)
 
+@user_passes_test(is_staff_user)
 @login_required
 def order_detail(request, order_id: int):
     try:
