@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-<div class="container mt-4">
+<div class="container mt-5 pt-5">
     <div class="row mb-3">
         <div class="col">
             <h1>{{ title }}</h1>
@@ -21,17 +21,17 @@
             <p><strong>Клиент:</strong> {{ order.client_name }}</p>
             <p><strong>Дата:</strong> {{ order.date }}</p>
             <p><strong>Статус:</strong> 
-                {% if order.status == 'new' %}
-                    <span class="badge bg-warning">Новая</span>
-                {% elif order.status == 'confirmed' %}
-                    <span class="badge bg-primary">Подтверждена</span>
-                {% elif order.status == 'completed' %}
-                    <span class="badge bg-success">Выполнена</span>
-                {% elif order.status == 'cancelled' %}
-                    <span class="badge bg-danger">Отменена</span>
-                {% else %}
-                    <span class="badge bg-secondary">{{ order.status }}</span>
-                {% endif %}
+                {% if order.status == "новая" %}
+  <span class="badge bg-warning">{{order.status}}</span>
+{% elif order.status == "подтвержденная" %}
+  <span class="badge bg-primary">{{order.status}}</span>
+{% elif order.status == "выполненная" %}
+  <span class="badge bg-success">{{order.status}}</span>
+{% elif order.status == "отмененная" %}
+  <span class="badge bg-danger">{{order.status}}</span>
+{% else %}
+  <span class="badge bg-secondary">{{order.status}}</span>
+{% endif %}
             </p>
             <p><strong>Услуги:</strong></p>
             <ul>
