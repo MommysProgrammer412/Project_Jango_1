@@ -1,24 +1,50 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-        <div class="card">
-    <h5 class = 'card-title text-center'>{{title}}</h5>
-        <ul class="list-group list-group-flush">
-        <li class = 'list-group-item'>{{order.client_name}}</li>
-        <li class = 'list-group-item'>{{order.date}}</li>
-        <li class = 'list-group-item'>{{order.status}}</li>
-        <li class = 'list-group-item'>
-            <ul>
-            {% for service in order.services %}
-        <li>{{service}}</li>
-        {% endfor %}
-        </ul>
-        </li>
-        </ul>
-        <div class="card-body">
-            <a href=" {% url 'orders_list' %}" class = 'btn btn-dark'>В каталог</a>
+<div class="container mt-4">
+    <div class="row mb-3">
+        <div class="col">
+            <h1>{{ title }}</h1>
+        </div>
+        <div class="col-auto">
+            <a href="{% url 'orders_list' %}" class="btn btn-outline-dark">
+                <i class="bi bi-arrow-left"></i> Назад к списку заявок
+            </a>
         </div>
     </div>
+    
+    <div class="card">
+        <div class="card-header">
+            <h5 class="mb-0">Информация о заявке</h5>
+        </div>
+        <div class="card-body">
+            <p><strong>Клиент:</strong> {{ order.client_name }}</p>
+            <p><strong>Дата:</strong> {{ order.date }}</p>
+            <p><strong>Статус:</strong> 
+                {% if order.status == 'new' %}
+                    <span class="badge bg-warning">Новая</span>
+                {% elif order.status == 'confirmed' %}
+                    <span class="badge bg-primary">Подтверждена</span>
+                {% elif order.status == 'completed' %}
+                    <span class="badge bg-success">Выполнена</span>
+                {% elif order.status == 'cancelled' %}
+                    <span class="badge bg-danger">Отменена</span>
+                {% else %}
+                    <span class="badge bg-secondary">{{ order.status }}</span>
+                {% endif %}
+            </p>
+            <p><strong>Услуги:</strong></p>
+            <ul>
+                {% for service in order.services %}
+                    <li>{{ service }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="card-footer">
+            <a href="{% url 'orders_list' %}" class="btn btn-dark">Вернуться к списку заявок</a>
+        </div>
+    </div>
+</div>
 {% endblock content %}
 {% block scripts %}
 

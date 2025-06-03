@@ -3,7 +3,19 @@
   <ul class="list-group list-group-flush">
     <li class="list-group-item">{{order.client_name}}</li>
     <li class="list-group-item">{{order.date}}</li>
-    <li class="list-group-item">{{order.status}}</li>
+    <li class="list-group-item">
+  {% if order.status == 'new' %}
+    <span class="badge bg-warning">{{order.status}}</span>
+  {% elif order.status == 'confirmed' %}
+    <span class="badge bg-primary">{{order.status}}</span>
+  {% elif order.status == 'completed' %}
+    <span class="badge bg-success">{{order.status}}</span>
+  {% elif order.status == 'cancelled' %}
+    <span class="badge bg-danger">{{order.status}}</span>
+  {% else %}
+    <span class="badge bg-secondary">{{order.status}}</span>
+  {% endif %}
+</li>
     <li class="list-group-item">
       <ul>
         {% for service in order.services %}
