@@ -18,7 +18,7 @@ class Service(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Цена")
     duration = models.PositiveIntegerField(verbose_name="Длительность", help_text="Время выполнения в минутах")
     is_popular = models.BooleanField(default=False, verbose_name="Популярная услуга")
-    image = models.ImageField(upload_to="services/", blank=True, verbose_name="Изображение")
+    image = models.ImageField(upload_to="services/", blank=True, null=True, verbose_name="Изображение")
     
     class Meta:
         verbose_name = "Услуга"
@@ -41,8 +41,8 @@ class Master(models.Model):
         services (ManyToManyField): Связь с услугами, которые выполняет мастер
         is_active (bool): Статус активности мастера
     """
-    name = models.CharField(max_length=150, verbose_name="Имя")
-    photo = models.ImageField(upload_to="masters/", blank=True, verbose_name="Фотография")
+    name = models.CharField(max_length=150, verbose_name="Имя", default="Неизвестный мастер")
+    photo = models.ImageField(upload_to="masters/", blank=True, null=True, verbose_name="Фотография")
     phone = models.CharField(max_length=20, verbose_name="Телефон")
     address = models.CharField(max_length=255, verbose_name="Адрес")
     experience = models.PositiveIntegerField(verbose_name="Стаж работы", help_text="Опыт работы в годах")
@@ -90,7 +90,7 @@ class Order(models.Model):
     date_updated = models.DateTimeField(auto_now=True, verbose_name="Дата обновления")
     master = models.ForeignKey(Master, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Мастер")
     services = models.ManyToManyField(Service, related_name="orders", verbose_name="Услуги")
-    appointment_date = models.DateTimeField(verbose_name="Дата и время записи")
+    appointment_date = models.DateTimeField(null=True, blank=True, verbose_name="Дата и время записи")
     
     class Meta:
         verbose_name = "Заказ"
