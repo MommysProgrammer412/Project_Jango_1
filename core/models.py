@@ -21,6 +21,7 @@ class Order(models.Model):
     client_name = models.CharField(max_length=100)
     phone = models.CharField(max_length=20)
     comment = models.TextField(blank=True)
+    
     status = models.CharField(max_length=50, choices=STATUS_CHOICES, default="not_approved")
     date_created = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
