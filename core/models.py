@@ -26,8 +26,11 @@ class Order(models.Model):
     date_updated = models.DateTimeField(auto_now=True)
     # Один ко многим
     master = models.ForeignKey("Master", on_delete=models.SET_NULL, null=True, related_name="orders")
+    services = models.ManyToManyField("Service", related_name="orders", blank=True)
     appointment_date = models.DateTimeField(blank=True, null=True)
 
+    def __str__(self):
+        return f"Заказ {self.id} от {self.client_name}"
     class Meta:
         verbose_name = "Заказ"
         verbose_name_plural = "Заказы"
@@ -55,6 +58,8 @@ class Master(models.Model):
     # Многие ко многим
     services = models.ManyToManyField("Service", related_name="masters")
     is_active = models.BooleanField(default=True)
+    def __str__(self):
+        return f"{self.first_name} {self.last_name}"
 
 
 class Service(models.Model):
@@ -64,6 +69,9 @@ class Service(models.Model):
     duration = models.PositiveIntegerField(help_text="Время в минутах", verbose_name="Время выполнения услуги")
     is_popular = models.BooleanField(default=False, verbose_name="Популярная услуга")
     image = models.ImageField(upload_to="images/services/", blank=True, null=True, verbose_name="Изображение услуги")
+
+    def __str__(self):
+        return f"{self.name} - {self.price} руб."
 
     
     class Meta:
