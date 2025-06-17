@@ -1,22 +1,41 @@
-{% extends "base.html" %}
-{% block content %}
+{% extends "base.html" %} {% block content %}
 
-    <div class="row align-items-center mb-3">
-        <div class="col">
-            <h1 class="mb-0">{{title}}</h1>
-        </div>
-        <div class="col-auto">
-            <span class='badge bg-secondary'>Всего заявок: {{orders|length}}</span>
-        </div>
+<div class="row align-items-center mb-3">
+  <div class="col">
+    <h1 class="mb-0">{{title}}</h1>
+  </div>
+  <div class="col-auto">
+    <span class="badge bg-secondary">Всего заявок: {{orders|length}}</span>
+  </div>
+</div>
+
+<div class="row">
+
+  <form>
+    <div class="mb-3">
+      <label for="order-search" class="form-label"
+        >Номер телефона клиента</label
+      >
+      <div class='input-group'>
+      <input
+        type="text"
+        class="form-control"
+        id="order-search"
+        aria-describedby="emailHelp"
+        name='search'
+        placeholder='Введите номер телефона клиента'
+      >
+    <button type="submit" class="btn btn-dark">Искать</button>
     </div>
-    
-    <div class="row">
-        {% for order in orders %}
-        <!-- Для 2 карточек в ряд используем col-md-6 -->
-        <!-- Для 3 карточек в ряд заменить на col-md-4 -->
-        <div class="col-12 col-md-6 col-lg-4 mb-4">
-            {% include "core/order_card_include.html" %}
-        </div>
-        {% endfor %}
     </div>
-{% endblock  %}
+  </form>
+
+  {% for order in orders %}
+  <!-- Для 2 карточек в ряд используем col-md-6 -->
+  <!-- Для 3 карточек в ряд заменить на col-md-4 -->
+  <div class="col-12 col-md-6 col-lg-4 mb-4">
+    {% include "core/order_card_include.html" %}
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

@@ -34,10 +34,17 @@ def thanks(request):
 
 @login_required
 def orders_list(request):
-    orders = Order.objects.all()
 
-    context = {"orders": orders, "title": "Список заказов"}
-    return render(request, "core/orders_list.html", context)
+    if request.method == "GET":
+        search_query = request.GET.get("search", None)
+
+        if search_query:
+            orders = Order.objects.filter(phone__icontains=search_query)
+        else:
+            orders = Order.objects.all()
+
+        context = {"orders": orders, "title": "Список заказов"}
+        return render(request, "core/orders_list.html", context)
 
 @login_required
 def order_detail(request, order_id: int):
